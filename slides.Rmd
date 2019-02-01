@@ -1,0 +1,85 @@
+---
+title: "Do Data Better"
+author: "Ryan Derickson & Jena Wierwille, SIOP 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Wait, what's wrong with data now?
+
+A lot.
+
+
+##
+```{r, out.width="100%"}
+
+knitr::include_graphics("bingo.png")
+
+```
+
+
+## Tech stack
+
+1. **R** ~ the processor
+2. **RStudio** ~ the OS
+3. **Packages** ~ the programs
+
+
+
+
+# Why R
+
+## Capability
+
+R...
+
+* is almost always more capable than Excel, SAS, SPSS 
+* incorporates new developments sooner
+* can be general-purpose
+* integrates well with other common languages
+
+
+
+
+##
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, results="asis"}
+
+library(plotly)
+plot_ly(economics, x = ~date, y = ~unemploy / pop)
+
+```
+
+
+## Quality of life
+
+R...
+
+* creates one workflow from cleaning to presentation
+* eleminates final.out, FINAL.out, OMGFINAL.out, etc.
+* ensures everything is current via piping
+* is (subjectively) easier to learn than SAS or SPSS syntax
+* handles tedium for you
+
+
+
+## Portability
+
+R...
+
+* is free & open source!
+
+<br><br>
+
+But can I really trust it if it's free?
+
+##
+
+```{r, out.width="95%"}
+
+knitr::include_graphics("logos.png")
+
+```
