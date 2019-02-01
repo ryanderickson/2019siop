@@ -25,13 +25,16 @@ Here's the tech stack you need (it's all free and open source!):
     + R is a whole ecosystem is packages that do specilized things. You call the packages you need to do the things you want to do.   
     + Packages are like specific programs.
 
+<br><br><br>
 
-#### If R is free, can I *really* trust it?  These are a few of the groups that do:
-    
+#### "If R is free, can I *really* trust it?"  These are a few of the groups that do:
+
+<br><br><br>
 
 ![](i1.png)
 ![](i2.png)
 ![](i3.png)
+![](i4.png)
 
 
 
