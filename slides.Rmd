@@ -1,82 +1,175 @@
 ---
 title: "Do Data Better"
 author: "Ryan Derickson & Jena Wierwille, SIOP 2019"
-output: ioslides_presentation
+output: 
+  ioslides_presentation:
+    smaller: true
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+
+library(plotly)
+library(leaflet)
+
+cred<-"#CD0835"     # 205, 8, 53
+corange<-"#F97D01"  # 249, 125, 1
+cgray<-"#57585a"    # 87, 88, 90
+cgreen<-"#17A599"   # 23, 165, 153
+cblue<-"#00a2e8"    # 0, 162, 232
+cpurple<-"#a349a4"  # 163, 73, 164 
+
+# function to tidy up the coloring of text w/html
+ct<-function(col, txt){
+  paste0("<font color='", col, "'>", txt, "</font>")
+}
+
 ```
 
-## Wait, what's wrong with data now?
 
-A lot.
+<!-- css for background-->
+<style>
+
+slide {
+  background-color: #fff;
+}
+
+</style>
 
 
-##
+
+
+## Housekeeping
+
+All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. If you use GitHub, you know what to do. If you don't use GitHub, here's a good excuse to start. 
+
+
+Important files:
+
+- [README.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - our bios and table of contents 
+
+- [slides.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the code that generated this deck  
+
+- [flexdashboard.Rmd](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the flexdashboard example  
+
+- [shinydashboard.Rmd](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the shinydashboard example  
+
+
+
+
+
+## {.flexbox .vcenter}
+
+`r ct(cred, "\"I used to think that the worst thing in life is to end up alone. It's not. The worst thing in life is to end up with people who make you... <b>sit through an awful data presentation</b>.\"")` <br><br> - Robin Williams (mostly)
+
+
+
+
+
+
+## Data presentation bingo {.flexbox .vcenter}
+
+<div class="centered">
 ```{r, out.width="100%"}
-
 knitr::include_graphics("bingo.png")
-
 ```
+</div>
+
+
+
+
+
+
+## More mildly
+
+> - "I guess I'm not a data person."  
+> - "This is too complex."  
+> - "So what do I do with this?"  
+> - "This is too much data."  
+
+<br><br>
+
+> - i.e., **"I'm not benefitting from the data."**
+
+
+
+
+
+
+
+## {.flexbox .vcenter}
+
+`r ct(cred, "\"There's no such thing as information overload, only poor design.\"")` <br><br>- Edward Tufte (completely)
+
+
+
+
+
+
+
+
+
+
 
 
 ## Tech stack
 
-1. **R** ~ the processor
-2. **RStudio** ~ the OS
-3. **Packages** ~ the programs
+1. **R** ~ iPhone
+2. **RStudio** ~ iOS
+3. **Packages** ~ the apps
 
 
 
 
-# Why R
 
-## Capability
+## R is more capable
 
-R...
+- Almost always a better choice than Excel, SAS, SPSS 
+- Incorporates new developments sooner, more flexibly
+- General purpose language, not just data science
+- Integrates well with other useful tools
+    + Python
+    + SQL
+    + TensorFlow
+    + Web (css, js)
+    + LaTeX
+    + MS Office
 
-* is almost always more capable than Excel, SAS, SPSS 
-* incorporates new developments sooner
-* can be general-purpose
-* integrates well with other common languages
+
+## R improves your quality of life
+
+- Creates one workflow from data cleaning to presentation. No more messy files named <font class="cred">final.out</font>, <font class="cblue">FINAL.out</font>, <font class="cgreen">OMGFINAL.out</font>
+- Ensures everything is current via piping
+- Is (subjectively) easier to learn than SAS or SPSS syntax
+- Handles tedium for you...
 
 
-
-
-##
+## 1 line of code {.flexbox .vcenter}
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, results="asis"}
 
-library(plotly)
 plot_ly(economics, x = ~date, y = ~unemploy / pop)
 
 ```
 
 
-## Quality of life
-
-R...
-
-* creates one workflow from cleaning to presentation
-* eleminates final.out, FINAL.out, OMGFINAL.out, etc.
-* ensures everything is current via piping
-* is (subjectively) easier to learn than SAS or SPSS syntax
-* handles tedium for you
 
 
+## 3 lines of code
 
-## Portability
+```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=3.75, results="asis"}
 
-R...
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat=38.781366, lng=-77.013841, popup="We're here!")
 
-* is free & open source!
+```
 
-<br><br>
 
-But can I really trust it if it's free?
+## R is free & open source
 
-##
+*"But can I really trust it if it's free...?"*
 
 ```{r, out.width="95%"}
 
