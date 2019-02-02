@@ -7,30 +7,51 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+
+# call the packages
 library(flexdashboard)
+library(plotly)
+library(leaflet)
+
 ```
 
-Column {data-width=650}
+Column {data-width=600}
 -----------------------------------------------------------------------
 
-### Chart A
+### Where we are
 
 ```{r}
 
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
+
 ```
 
-Column {data-width=350}
+Column {data-width=400}
 -----------------------------------------------------------------------
 
-### Chart B
+### Personal savings vs expenditures by year
 
 ```{r}
+
+plot_ly(economics, x = ~date) %>%
+  add_trace(y = ~ (psavert-mean(psavert))/sd(psavert), name = "Sav", mode="lines") %>%
+  add_trace(y = ~ (pce-mean(pce))/sd(pce), name="Exp", mode="lines") %>%
+  layout(title="",
+         yaxis=list(title="Z-score", range=c(-3,3)),
+         xaxis=list(title=""))
 
 ```
 
-### Chart C
+### Median length of unemployment by year
 
 ```{r}
+
+plot_ly(economics, x = ~date, y = ~uempmed, mode="lines") %>%
+  layout(yaxis=list(title="Weeks"),
+         xaxis=list(title=""))
+
 
 ```
 
