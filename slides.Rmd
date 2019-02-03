@@ -196,7 +196,8 @@ Why should you use R if you don't already?
 - Integrates well with other useful tools
     - Python
     - SQL
-    - TensorFlow, H20.ai
+    - TensorFlow
+    - H<sub>2</sub>O.ai
     - Stan
     - Hugo
     - Web (.css, .js)
@@ -220,7 +221,8 @@ Why should you use R if you don't already?
   `r ct(corange, "new_presentation.ppt")`  
   `r ct(corange, "mypresentation_new.ppt")`  
   `r ct(corange, "new_use_this_one_really.ppt")`
-- Ensures everything is current via piping
+- Ensures everything is current via piping  
+- Compile to .pdf, .html, .docx, etc. with minimal edits  
 - Handles tedium for you (more on this later)
 - Do more with less code...
 
@@ -289,14 +291,18 @@ knitr::include_graphics("logos.png")
 install.packages("flexdashboard")
 ```
 
-flexdashboard (fdb) creates a dashboard framework for you to plug in your data, visuals, descriptions, and materials. 
+flexdashboard creates a dashboard framework for you to plug in your data, visuals, descriptions, and materials. 
 
 ```
 RStudio / File / New File / R Markdown / From Template / Flex Dashboard
 
 ```
 
-RStudio gives you a basic fdb template by default. We'll go through the pieces of it next.
+This creates a special kind of **RMarkdown** file. You write R code to handle the data, plain text with markup to style it, and use the functions in flexdashbaord to set the layout you want - `r ct(corange, "all in the same file")`. 
+
+**knitting** the file renders your text with markup in the layout you specify, runs the R code in the code chunks, and inserts their outputs (graphs, tables, etc.) where they should go.
+
+RStudio gives you a basic template by default. We'll go through the pieces of it next.
 
 
 
@@ -329,7 +335,7 @@ output:
 ```
 
 
-**YAML** sets the title and output format. The default values are fine so you don't have to do anything here unless you want something specific.
+**YAML** sets the title and output format. The default values are fine so you don't have to do anything here unless you want something specific. Spacing and indentation matter in YAML (annoying but usually handled for you).
 
 
 
@@ -346,9 +352,9 @@ Column {data-width=600}
 
 ```
 
-`r ct(cpurple, "Column")` followed by `r ct(cpurple, "---------")` creates a new column or row.  
+```Column``` followed by ```---------``` creates a new column.  
 
-The enture screen is 1,000 units wide, and `r ct(cpurple, "{data-width = x}")` controls the widths of the columns. Width is relative to screen size, not absolute (i.e., not in pixels).
+The enture screen is 1,000 units wide, and ```{data-width = x}``` controls the widths of the columns. 
 
 
 
@@ -365,7 +371,7 @@ The enture screen is 1,000 units wide, and `r ct(cpurple, "{data-width = x}")` c
 ```
 
 
-`r ct(cpurple, "### Where we are")` creates a flexbox in the column (titled "Where we are"). The flexbox is where your graph, text, etc. will be displayed. Think of flexboxes like smart containers for your content.
+```###``` creates a flexbox in the column (titled "Where we are"). The flexbox is where your graph, text, etc. will be displayed. Think of flexboxes like smart containers for your content.
 
 If we only create one flexbox in a column, it will fill the entire column. If we create multiple, they'll stack.
 
@@ -384,11 +390,11 @@ Column {data-width=600}
   
 ### Where we are
 
-# ```{r}
-# leaflet() %>%
-#   addTiles() %>%
-#   addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
-# ```
+``{r}
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
+``
   
 ### Where we're going
 
@@ -400,9 +406,10 @@ Column {data-width=600}
 ```
 
 
-`r ct(cpurple, "'''{r}")` defines a chunk of R code. This evaluates when you compile the fdb, and whatever it produces gets inserted into the flexbox associated with that chunk.
+``` '''{r}``` defines a chunk of R code. This evaluates when you compile and whatever it produces gets inserted into the flexbox associated with that chunk.
 
-Here, we have a column 60% of the screen width (600 / 1000) and we fill it with two flexboxes stacked on top of each other. The first one has a chunk of R code that makes a map, and the second one has only text.
+Here, we have a column 60% of the screen width (600 / 1000) and we fill it with two flexboxes stacked on top of each other. The first one has a chunk of R code that makes a map, and the second one has text with HTML markup.
+
 
 
 
@@ -412,11 +419,11 @@ Here, we have a column 60% of the screen width (600 / 1000) and we fill it with 
 
 ## Automation
 
-Suppose your company has 10 locations and you want to make a custom fdb for each one. Simply set up a **template** fdb that accepts data in the form yours is in, and a **driver** R file. 
+Suppose your company has 10 locations and you want to make a flexdashboard for each one. Simply set up a **template** and a **driver** R file. 
 
-The driver file sequentially subsets your data to each of the 10 location, and hands those subsets off to the fdb template. The template and driver file talk to each other automatically because they share an environment, which is like being in the same room.
+The driver file subsets your data to each of the 10 location, and hands those subsets off to the template. The template and driver file talk to each other automatically because they share an environment (like being in the same room).
 
-Your template fdb called "template.Rmd" and your data object is "data".
+Your template flexdashboard is called ```template.Rmd``` and your data object is ```data```.
 
 ```{r echo=TRUE, eval=FALSE}
 
@@ -427,13 +434,18 @@ for(i in unique(data$location)){
 
 ```
 
-`r ct(cpurple, "template.Rmd")` is set up to build graphs, etc. from the `r ct(cpurple, "temp")` object.
+```template.Rmd``` is set up to build graphs, etc. from the ```temp``` object. As R loops thought the locations, ```temp``` holds the data for each one.
+
+```rmarkdown::render()``` does the same thing as the **knit** button.
+
+
+
 
 
 
 ## Big picture
 
-Open a fdb template, set the layout you want, and use chunks of R code to populate the flexboxes. Then, you "knit" the file which tells R to turn the code into HTML your web browser can read, or knit automatically through a driver file. 
+Open a flexdashboard template, set the layout you want, and use chunks of R code to populate the flexboxes. **knit** the file to tell R to turn the code into HTML your web browser can read, or automate with a driver file. 
 
 **Pros**  
 
