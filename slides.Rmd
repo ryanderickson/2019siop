@@ -35,7 +35,7 @@ ct<-function(col, txt){
 <style>
 
 slide {
-  background-color: #fff;
+background-color: #fff;
 }
 
 </style>
@@ -68,7 +68,7 @@ Important files:
 
 We're tired of seeing good data collection and analysis go to waste. We want to share how (relatively) easy it can be to present data more effectively. 
 
-Our goal today is to show you what's possible and give you ideas to follow up on later - there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**If this is new to you, focus on the concepts, not the code - you can figure out the code later**")`.
+Our goal today is to show you what's possible and give you ideas to follow up on later - there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**Focus on the concepts, not the code - you can figure out the code later**")`.
 
 That said, help us make the most of this time. Who...
 
@@ -100,6 +100,7 @@ That said, help us make the most of this time. Who...
 knitr::include_graphics("bingo.png")
 ```
 </div>
+
 
 
 
@@ -141,9 +142,10 @@ knitr::include_graphics("bingo.png")
 
 
 
+
 ## Just in Time
 
-JIT - apply principles from manufacturing to data science to reduce wasted time and effort (the tools and software we'll cover soon help you achieve this).  
+JIT - apply principles from manufacturing to data science to reduce wasted time and effort (the tools and software we'll cover soon help you achieve these).  
 
 > - `r ct(cgreen, "**Produce only what's needed**")`   
 > - `r ct(cgreen, "**Make it beautiful and engaging**")`  
@@ -166,7 +168,19 @@ JW - stuff about material design, tailoring for audience, etc.
 
 
 
+## Here's what we've done
+
+JW - demo AES dashboard, explain philosophy 
+
+
+
+
+
+
+
+
 # R and friends
+
 
 
 
@@ -176,13 +190,14 @@ JW - stuff about material design, tailoring for audience, etc.
 
 ## Tech stack
 
-1. **R** ~ iPhone
-2. **RStudio** ~ iOS
-3. **Packages** ~ apps
+1. [R](https://www.r-project.org/) ~ iPhone
+2. [RStudio](https://www.rstudio.com/) ~ iOS
+3. [Packages](https://cran.r-project.org/) ~ apps
 
 <br>
 
 Why should you use R if you don't already?
+
 
 
 
@@ -212,18 +227,10 @@ Why should you use R if you don't already?
 
 ## R improves your quality of life
 
-- Creates one workflow from data cleaning to presentation. No more...  
-  `r ct(corange, "final.xlsx")`  
-  `r ct(corange, "FINAL.xlsx")`   
-  `r ct(corange, "OMGFINAL.xlsx")`   
-  `r ct(corange, "OMGFINAL_1.xlsx")`  
-  `r ct(corange, "presentation.ppt")`  
-  `r ct(corange, "new_presentation.ppt")`  
-  `r ct(corange, "mypresentation_new.ppt")`  
-  `r ct(corange, "new_use_this_one_really.ppt")`
+- Creates one workflow from data cleaning to presentation (more on this soon)  
 - Ensures everything is current via piping  
-- Compile to .pdf, .html, .docx, etc. with minimal edits  
-- Handles tedium for you (more on this later)
+- Compile to .pdf, .html, .docx, etc. with minimal edits    
+- Handles tedium for you (more on this soon)
 - Do more with less code...
 
 
@@ -285,37 +292,117 @@ knitr::include_graphics("logos.png")
 
 
 
+
+```{r, include=FALSE}
+
+library(magrittr)
+library(visNetwork)
+
+path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
+
+edges<-data.frame(from=c(5,5,4,4,1,1,6,3,6),
+                  to=  c(1,3,1,3,6,3,3,6,2))
+
+
+nodes<-data.frame(id=1:6,
+                  shape="image",
+                  image=paste0(path, 1:6, ".png"))
+
+vn<-visNetwork(nodes, edges,width="500px", height="300px") %>%
+  visNodes(shapeProperties=list(useBorderWithImage=FALSE)) %>%
+  visEdges(arrows=list(to=list(enabled=TRUE)),
+           color=list(color="gray", highlight="black")) %>%
+  visLayout(randomSeed=5)
+
+visSave(vn, "workflow net.html")
+
+```
+
+
+
+
+
+
+
+## Normal workflow
+
+<iframe src="workflow net.html" style="border:0;"></iframe>
+
+
+
+
+
+
+
+
+## RMarkdown workflow {.flexbox .vcenter}
+
+![](https://www.rstudio.com/wp-content/uploads/2014/04/rmarkdown-200x232.png)
+
+
+
+
+
+
+## No more...
+
+final.xlsx  
+FINAL.xlsx   
+OMGFINAL.xlsx   
+OMGFINAL_1.xlsx  
+presentation.ppt  
+new_presentation.ppt  
+mypresentation_new.ppt  
+new_use_this_one_really.ppt  
+submission.docx  
+submission2.pdf  
+etc.
+
+<br>
+
+Instead, you have...
+
+`r ct(corange, "project.Rmd")`. Pair with GitHub for easy collaboration and tracking.  
+
+
+
+
+
+
 ## Self-contained interactivity
 
 ```{r echo=TRUE, eval=FALSE}
 install.packages("flexdashboard")
 ```
 
-flexdashboard creates a dashboard framework for you to plug in your data, visuals, descriptions, and materials. 
+flexdashboard is a special RMarkdown template that handles most of the tedium of creating a dashboard. It comes with functions for sizing, styling, content containers, etc. already built for you.    
 
 ```
 RStudio / File / New File / R Markdown / From Template / Flex Dashboard
 
 ```
 
-This creates a special kind of **RMarkdown** file. You write R code to handle the data, plain text with markup to style it, and use the functions in flexdashbaord to set the layout you want - `r ct(corange, "all in the same file")`. 
+This opens a new flexdashboard template. You write R code to handle the data, plain text with markup to style it, and use the functions in flexdashbaord to set the layout you want - `r ct(corange, "all in the same file")`. 
 
 **knitting** the file renders your text with markup in the layout you specify, runs the R code in the code chunks, and inserts their outputs (graphs, tables, etc.) where they should go.
 
-RStudio gives you a basic template by default. We'll go through the pieces of it next.
 
 
 
 
 
 
-##
 
-```{r, out.width="95%"}
+ 
+## Just like this...
 
-knitr::include_graphics("fdbshell.png")
+<br><br>
 
-```
+<div class="centered">
+<video src="flexdashboard sg.mp4" type="video/mp4" width="500" controls></video>
+</div>
+  
+   
 
 
 
@@ -329,51 +416,14 @@ knitr::include_graphics("fdbshell.png")
 title: "Untitled"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+  orientation: columns
+vertical_layout: fill
 
 ```
 
 
-**YAML** sets the title and output format. The default values are fine so you don't have to do anything here unless you want something specific. Spacing and indentation matter in YAML (annoying but usually handled for you).
+**YAML** sets the title and output format. The default values are fine so you don't have to do anything here unless you want something specific. 
 
-
-
-
-
-
-
-## 
-
-```{r echo=TRUE, eval=FALSE}
-
-Column {data-width=600}
------------------------------------------------------------------------
-
-```
-
-```Column``` followed by ```---------``` creates a new column.  
-
-The enture screen is 1,000 units wide, and ```{data-width = x}``` controls the widths of the columns. 
-
-
-
-
-
-
-
-## 
-
-```{r echo=TRUE, eval=FALSE}
-
-### Where we are
-
-```
-
-
-```###``` creates a flexbox in the column (titled "Where we are"). The flexbox is where your graph, text, etc. will be displayed. Think of flexboxes like smart containers for your content.
-
-If we only create one flexbox in a column, it will fill the entire column. If we create multiple, they'll stack.
 
 
 
@@ -388,89 +438,138 @@ If we only create one flexbox in a column, it will fill the entire column. If we
 Column {data-width=600}
 -----------------------------------------------------------------------
   
-### Where we are
-
-``{r}
+  ### Where we are
+  
+  ``{r}
 leaflet() %>%
   addTiles() %>%
   addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
 ``
-  
+
 ### Where we're going
 
 <p>
   We can <b>write</b> in these boxes too. (Virtually) anything that could go on 
-  a webpage could go in a flexbox.
+a webpage could go in a flexbox.
 </p>
-
+  
 ```
+  
+  
 
-
-``` '''{r}``` defines a chunk of R code. This evaluates when you compile and whatever it produces gets inserted into the flexbox associated with that chunk.
-
-Here, we have a column 60% of the screen width (600 / 1000) and we fill it with two flexboxes stacked on top of each other. The first one has a chunk of R code that makes a map, and the second one has text with HTML markup.
-
-
-
-
-
+``` '''{r}``` defines a chunk of R code. This evaluates when you knit and whatever it produces gets inserted into the flexbox associated with that chunk.
+  
+  Here, we have a column 60% of the screen width (600 / 1000) and we fill it with two flexboxes stacked on top of each other. The first one has a chunk of R code that makes a map, and the second one has text with HTML markup.
+  
+  
 
 
 
-## Automation
-
-Suppose your company has 10 locations and you want to make a flexdashboard for each one. Simply set up a **template** and a **driver** R file. 
-
-The driver file subsets your data to each of the 10 location, and hands those subsets off to the template. The template and driver file talk to each other automatically because they share an environment (like being in the same room).
-
-Your template flexdashboard is called ```template.Rmd``` and your data object is ```data```.
-
+  
+  
+  
+## Styling - themes
+  
 ```{r echo=TRUE, eval=FALSE}
-
-for(i in unique(data$location)){
+  
+  title: "Untitled"  
+  output:   
+    flexdashboard::flex_dashboard:  
+    orientation: columns  
+  vertical_layout: fill  
+  theme: bootstrap  
+  
+```
+  
+  
+  Flexdashboard uses the [Bootswatch](https://bootswatch.com/) framework. Many themes are available. To use or change a theme, just specify the one you want in the YAML and knit.
+  
+  
+  
+  
+  
+  
+  
+## Styling - custom
+  
+```{r echo=TRUE, eval=FALSE}
+  
+  title: "Untitled"
+  output: 
+    flexdashboard::flex_dashboard:
+    orientation: columns
+  vertical_layout: fill
+  css: styles.css
+  
+```
+  
+  
+If you want total control over your dashboard's appearance, you can use your own css. This is more work on the front end, but can be incredibly efficient over time (only need to make changes in one place). 
+  
+If your organization or client has a website, they have their own css. Steal it!
+  
+  
+  
+  
+  
+  
+  
+  
+## Automation
+  
+Suppose your company has 10 locations and you want to make a flexdashboard for each one. Simply set up a **template** and a **driver** R file. 
+  
+The driver file subsets your data to each of the 10 location, and hands those subsets off to the template. The template and driver file talk to each other automatically because they share an environment (like being in the same room).
+  
+Your template flexdashboard is called ```template.Rmd``` and your data object is ```data```.
+  
+```{r echo=TRUE, eval=FALSE}
+  
+  for(i in unique(data$location)){
   temp <- data[data$location == i, ]
   rmarkdown::render(input = "template.Rmd")
-}
-
+  }
+  
 ```
-
+  
 ```template.Rmd``` is set up to build graphs, etc. from the ```temp``` object. As R loops thought the locations, ```temp``` holds the data for each one.
-
+  
 ```rmarkdown::render()``` does the same thing as the **knit** button.
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
 ## Big picture
-
+  
 Open a flexdashboard template, set the layout you want, and use chunks of R code to populate the flexboxes. **knit** the file to tell R to turn the code into HTML your web browser can read, or automate with a driver file. 
-
+  
 **Pros**  
-
-> - Easy! (after the first couple times...)   
-> - Self-contained but interactive because it takes advantage of your web browser.   
-> - Can be emailed, posted, etc. and users don't have to do anything special.  
-> - Can add custom HTML, .css, .js if desired to customize the look or behavior.
-> - Can be automated!
-
-**Cons**  
-
-> - Interactivity is limited to HTML widgets - leaflet, plotly, DT, etc. 
-> - No server-side capability, so changes mean you have to recompile.  
-> - Occasional behavior differences across web browsers.  
-
-
-
-
-
-
-
+  
+  > - Easy! (after the first couple times...)   
+  > - Self-contained but interactive because it takes advantage of your web browser.   
+  > - Can be emailed, posted, etc. and users don't have to do anything special.  
+  > - Can add custom HTML, .css, .js if desired to customize the look or behavior.
+  > - Can be automated!
+  
+  **Cons**  
+  
+  > - Interactivity is limited to HTML widgets - leaflet, plotly, DT, etc. 
+  > - No server-side capability, so changes mean you have to recompile.  
+  > - Occasional behavior differences across web browsers.  
+  
+  
+  
+  
+  
+  
+  
 # shinydashboard
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
+  
