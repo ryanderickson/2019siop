@@ -58,10 +58,6 @@ Important files:
 
 - [slides.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the code that generated this deck  
 
-- [flexdashboard.Rmd](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the flexdashboard example  
-
-- [shinydashboard.Rmd](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the shinydashboard example  
-
 
 
 
@@ -414,7 +410,7 @@ RStudio / File / New File / R Markdown / From Template / Flex Dashboard
 
 ```
 
-This opens a new flexdashboard template. You write R code to handle the data, plain text with markup to style it, and use the functions in flexdashbaord to set the layout you want - `r ct(corange, "all in the same file")`. 
+This opens a new flexdashboard template. You write R code to handle the data, plain text with markup to style it, and use the functions in flexdashboard to set the layout you want - `r ct(corange, "all in the same file")`. 
 
 **knitting** the file renders your text with markup in the layout you specify, runs the R code in the code chunks, and inserts their outputs (graphs, tables, etc.) where they should go.
 
@@ -735,13 +731,12 @@ In the example above, as soon as the user asks for a different subset of data in
 
 ## Hosting
 
-Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. There are several options for hosting depending on your use case:
+Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. Several options for hosting depending on your use case:
 
-1. ```+ free, + easy, + secure, - accessible``` :: Locally on your machine   
-2. ```+ free, + easy, - secure, + accessible``` :: Shinyapps.io  
-3. ```- free, + easy, + secure, + accessible``` :: RStudio Connect  
-4. ```+ free, - easy, + secure, + accessible``` :: Shinyproxy  
-
+```+ free, + easy, + secure, - accessible``` :: Locally on your machine   
+```+ free, + easy, - secure, + accessible``` :: Shinyapps.io  
+```+ free, - easy, + secure, + accessible``` :: Shinyproxy 
+```- free, + easy, + secure, + accessible``` :: RStudio Connect  
 
 
 
@@ -756,5 +751,74 @@ Shiny apps need to be connected to an instance of R because the server.R code ne
 <div class="centered">
 <video src="`r paste0(path, '/shiny on shinyappsio.mp4')`" type="video/mp4" width="500" controls></video>
 </div>
+
+
+
+
+
+
+
+## Cool implementations (i.e., steal the code!)
+
+[For teachers](https://gallery.shinyapps.io/slr_diag/)
+
+[Bar optimizer](https://gallery.shinyapps.io/NYT-bar-optimizer/)
+
+[Effect of marketing](https://gallery.shinyapps.io/ga-effect/)
+
+[Hospital optimization](https://gallery.shinyapps.io/EDsimulation/)
+
+[New Zealand tourism](https://mbienz.shinyapps.io/tourism_dashboard_prod/)
+
+
+
+
+
+
+
+## Tips 
+
+> - Write user stories to focus your efforts  
+> - "Can we?" vs. "Should we?"  
+> - Do expensive things (like reading in data) outside of reactives  
+> - Write simple, modular reactives that chain together rather than one giant one  
+
+
+
+
+
+
+
+## Resources
+
+[Full flexdashboard reference](https://rmarkdown.rstudio.com/flexdashboard/index.html)
+
+[Full shiny reference](http://shiny.rstudio.com/tutorial/)
+
+[ioslides (this deck) reference](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
+
+
+
+
+
+
+
+# ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
