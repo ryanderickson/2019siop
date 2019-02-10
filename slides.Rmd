@@ -14,6 +14,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 library(plotly)
 library(leaflet)
+library(DT)
+
+# rearrange cols of iris for DT example
+iris<-iris[,c(5, 1:4)]
 
 # define color codes, RGB commented
 cred<-"#CD0835"     # 205, 8, 53
@@ -45,7 +49,7 @@ background-color: #fff;
 
 ## Housekeeping
 
-All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. If you use GitHub, you know what to do. If you don't use GitHub, here's a good excuse to start. 
+All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. If you use GitHub, you know what to do. If you don't use GitHub, here's a good excuse to start. Or, click **Clone or download / Download ZIP**
 
 
 Important files:
@@ -74,7 +78,7 @@ That said, help us make the most of this time. Who...
 
 > - often does data viz or presentation as part of your job?
 > - is familiar with R?  
-> - has used R for production (i.e., not just analyses)?
+> - has used R for more than statistics?
 
 
 
@@ -107,7 +111,7 @@ knitr::include_graphics("bingo.png")
 
 
 
-## More mildly
+## More likely
 
 > - "I guess I'm not a data person."  
 > - "This is too complex."  
@@ -116,7 +120,7 @@ knitr::include_graphics("bingo.png")
 
 <br>
 
-> - i.e., **"I'm not benefitting from the data."**
+> - i.e., **"I'm not benefitting from all your hard work."**
 
 
 
@@ -150,7 +154,7 @@ JIT - apply principles from manufacturing to data science to reduce wasted time 
 > - `r ct(cgreen, "**Produce only what's needed**")`   
 > - `r ct(cgreen, "**Make it beautiful and engaging**")`  
 > - `r ct(cgreen, "**Integrate when possible**")`     
-> - `r ct(cgreen, "**Make it easy to access**")`  
+> - `r ct(cgreen, "**Interactivity is usually better**")`  
 > - `r ct(cgreen, "**Help users draw conclusions**")` 
 
 
@@ -190,9 +194,9 @@ JW - demo AES dashboard, explain philosophy
 
 ## Tech stack
 
-1. [R](https://www.r-project.org/) ~ iPhone
-2. [RStudio](https://www.rstudio.com/) ~ iOS
-3. [Packages](https://cran.r-project.org/) ~ apps
+1. [R](https://www.r-project.org/) : iPhone
+2. [RStudio](https://www.rstudio.com/) : iOS
+3. [Packages](https://cran.r-project.org/) : apps
 
 <br>
 
@@ -227,11 +231,10 @@ Why should you use R if you don't already?
 
 ## R improves your quality of life
 
-- Creates one workflow from data cleaning to presentation (more on this soon)  
-- Ensures everything is current via piping  
-- Compile to .pdf, .html, .docx, etc. with minimal edits    
-- Handles tedium for you (more on this soon)
-- Do more with less code...
+> - Creates one workflow from data cleaning to presentation (more on this soon)  
+> - Compile to .pdf, .html, .docx, etc. with minimal edits    
+> - Handles tedium for you (more on this soon)
+> - Plugins let you do more with less code...
 
 
 
@@ -239,7 +242,8 @@ Why should you use R if you don't already?
 
 
 
-## 1 line of code {.flexbox .vcenter}
+
+## [Plotly](https://plot.ly/r/) - 1 line of code {.flexbox .vcenter}
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, results="asis"}
 
@@ -253,7 +257,7 @@ plot_ly(economics, x = ~date, y = ~unemploy / pop)
 
 
 
-## 3 lines of code
+## [Leaflet](https://rstudio.github.io/leaflet/) - 3 lines of code
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=3.75, results="asis"}
 
@@ -262,6 +266,22 @@ leaflet() %>%
   addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
 
 ```
+
+
+
+
+
+
+
+## [DataTables](https://rstudio.github.io/DT/) - 3 lines of code
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, results="asis"}
+
+datatable(iris, extensions = "Buttons", filter = "top", rownames = FALSE, 
+          options = list(dom = "Btp", pageLength = 6, autoWidth = TRUE,
+                         buttons = c("excel", "pdf", "print")))
+```
+
 
 
 
@@ -286,6 +306,18 @@ knitr::include_graphics("logos.png")
 
 
 # flexdashboard
+
+
+
+
+
+
+## 
+
+<br><br><br><br><br><br><br><br>
+
+`r ct(cred, "\"Don't focus on the code right now, focus on concepts.\"")` <br><br>- Ryan & Jena
+
 
 
 
@@ -399,7 +431,7 @@ This opens a new flexdashboard template. You write R code to handle the data, pl
 <br><br>
 
 <div class="centered">
-<video src="flexdashboard sg.mp4" type="video/mp4" width="500" controls></video>
+<video src="`r paste0(path, '/flexdashboard sg.mp4')`" type="video/mp4" width="500" controls></video>
 </div>
   
    
@@ -472,12 +504,12 @@ a webpage could go in a flexbox.
   
 ```{r echo=TRUE, eval=FALSE}
   
-  title: "Untitled"  
-  output:   
-    flexdashboard::flex_dashboard:  
+title: "Untitled"  
+output:   
+  flexdashboard::flex_dashboard:  
     orientation: columns  
-  vertical_layout: fill  
-  theme: bootstrap  
+    vertical_layout: fill  
+    theme: bootstrap  
   
 ```
   
@@ -494,12 +526,12 @@ a webpage could go in a flexbox.
   
 ```{r echo=TRUE, eval=FALSE}
   
-  title: "Untitled"
-  output: 
-    flexdashboard::flex_dashboard:
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
     orientation: columns
-  vertical_layout: fill
-  css: styles.css
+    vertical_layout: fill
+    css: styles.css
   
 ```
   
@@ -509,6 +541,36 @@ If you want total control over your dashboard's appearance, you can use your own
 If your organization or client has a website, they have their own css. Steal it!
   
   
+  
+
+
+
+## Styling - storyboard
+
+Storyboards are great for organizing data displays and explanatory text. The whole dashboard can be formatted as a storyboard:
+
+```{r echo=TRUE, eval=FALSE}
+
+title: "Untitled"  
+output:   
+  flexdashboard::flex_dashboard:  
+    storyboard: true
+```
+
+Or, make just one page a storyboard:
+
+```{r echo=TRUE, eval=FALSE}
+
+Page 1 {.storyboard}
+========================
+  
+### Frame 1
+
+### Frame 2
+```
+
+
+[Example](https://beta.rstudioconnect.com/jjallaire/htmlwidgets-showcase-storyboard/htmlwidgets-showcase-storyboard.html)
   
   
   
@@ -525,10 +587,11 @@ Your template flexdashboard is called ```template.Rmd``` and your data object is
   
 ```{r echo=TRUE, eval=FALSE}
   
-  for(i in unique(data$location)){
+for(i in unique(data$location)){
   temp <- data[data$location == i, ]
-  rmarkdown::render(input = "template.Rmd")
-  }
+  rmarkdown::render(input = "template.Rmd",
+                    output_file = paste0(i, ".html"))
+}
   
 ```
   
@@ -536,9 +599,36 @@ Your template flexdashboard is called ```template.Rmd``` and your data object is
   
 ```rmarkdown::render()``` does the same thing as the **knit** button.
   
+
+
+
+
+## Just like this...
+
+<br><br>
+
+<div class="centered">
+<video src="`r paste0(path, '/flexdashboard automation.mp4')`" type="video/mp4" width="500" controls></video>
+</div>
+  
+
+
+
+
+
+
+
+## Tips
+
+> - Use the browser's developer tool to unpack flexdashboard's css if you need to write your own css file.  
+> - Run your code chunks manually in a clean environment to make sure they do what you expect before you knit.  
+> - Test functionality in different (modern) browsers and mobile. Secure environments may disable js - coordinate with IT.  
+> - Make it interactive! `r ct(corange, "Plotly, DataTables, Leaflet, networkD3, ggplot2, googleVis ...")`
+  
+
   
   
-  
+
   
   
 ## Big picture
@@ -547,29 +637,124 @@ Open a flexdashboard template, set the layout you want, and use chunks of R code
   
 **Pros**  
   
-  > - Easy! (after the first couple times...)   
-  > - Self-contained but interactive because it takes advantage of your web browser.   
-  > - Can be emailed, posted, etc. and users don't have to do anything special.  
-  > - Can add custom HTML, .css, .js if desired to customize the look or behavior.
-  > - Can be automated!
+> - Easy! (after the first couple times...)   
+> - Self-contained but interactive because it takes advantage of the web browser.   
+> - Can be emailed, posted, etc. and users don't have to do anything special.  
+> - Can add custom HTML, .css, .js if desired to customize the look or behavior.
+> - Can be automated!
   
-  **Cons**  
+**Cons**  
   
-  > - Interactivity is limited to HTML widgets - leaflet, plotly, DT, etc. 
-  > - No server-side capability, so changes mean you have to recompile.  
-  > - Occasional behavior differences across web browsers.  
-  
-  
+> - Interactivity is limited to HTML widgets - leaflet, plotly, DT, etc. 
+> - No server-side capability, so changes mean you have to recompile.  
+> - Occasional behavior differences across web browsers.  
   
   
   
   
   
-# shinydashboard
+  
+  
+# shiny
   
   
   
   
-  
+
+
+
+## Flexdashboard vs. shiny
+
+**flexdashboard** : vending machine
+
+**shiny** : factory
+
+<br>
+
+Flexdashboard's capability is limited by the widgets you use and what the web browser can handle. Shiny's capability is unlimited because it's connected to an instance of R. You can do things like...
+
+> - Run a model on user-uploaded data and graph the results  
+> - Connect to APIs (e.g., Twitter, Census Bureau)  
+> - Connect to databases in real time  
+> - Collect user input (e.g., surveys) and show real-time results  
+> - Authenticate users  
+
+
+
+
+
+
+## Shiny components
+
+`r ct(corange, "ui.R")` defines what inputs are available and what the layout looks like. 
+
+`r ct(corange, "server.R")` handles the data.  
+
+<br>
+
+
+
+
+
+
+
+## ui.R
+
+Functions like ```sidebarLayout()``` and ```sidebarPanel()``` create space for inputs. 
+
+Functions like ```sliderInput()```, ```checkboxInput()```, and ```textInput()``` create and tag places for users to input data or control some aspect of the app.  
+
+```mainPanel()``` creates a space for the app's result to be displayed.  
+
+Functions like ```plotOutput()``` and ```dataTableOutput()``` render different kinds of output in the main panel.  
+
+
+
+
+
+
+
+## server.R 
+
+This is where your more familiar R code goes. A typical server file might do something like this:  
+
+`r ct(corange, "1. Subset the data based on user inputs")`  
+`r ct(cgreen, "2. Model the subsetted data")`    
+`r ct(cpurple, "3. Create a graph of the results and send it to the UI")`
+
+These actions are done within ```reactive({...})``` functions. These are like really nosy people who eavesdrop on everything and re-fire if they detect a change in something they care about. Reactives handle an incredible amount of work for you!  
+
+In the example above, as soon as the user asks for a different subset of data in the UI, `r ct(corange, "Reactive #1")` detects it and creates the new subset. `r ct(cgreen, "Reactive #2")` is always listening for #1 to change and knows to re-model the data when it changes. `r ct(cpurple, "Reactive #3")` is always listening for #2 to change and knows to re-do the graph when it changes.  
+
+
+
+
+
+
+
+
+## Hosting
+
+Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. There are several options for hosting depending on your use case:
+
+1. ```+ free, + easy, + secure, - accessible``` :: Locally on your machine   
+2. ```+ free, + easy, - secure, + accessible``` :: Shinyapps.io  
+3. ```- free, + easy, + secure, + accessible``` :: RStudio Connect  
+4. ```+ free, - easy, + secure, + accessible``` :: Shinyproxy  
+
+
+
+
+
+
+
+
+## Just like this...
+
+<br><br>
+
+<div class="centered">
+<video src="`r paste0(path, '/shiny on shinyappsio.mp4')`" type="video/mp4" width="500" controls></video>
+</div>
   
   
