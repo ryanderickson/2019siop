@@ -49,14 +49,16 @@ background-color: #fff;
 
 ## Housekeeping
 
-All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. If you use GitHub, you know what to do. If you don't use GitHub, here's a good excuse to start. Or, click **Clone or download / Download ZIP**
-
+All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. Click "Clone or Download" then "Download ZIP".
 
 Important files:
 
 - [README.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - our bios and table of contents 
 
-- [slides.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - the code that generated this deck  
+- [slides.html](https://github.com/ryanderickson/2019siop/blob/master/slides.html) - this deck 
+
+- [slides.Rmd](https://github.com/ryanderickson/2019siop/blob/master/slides.Rmd) - the code that generated this deck  
+
 
 
 
@@ -66,15 +68,33 @@ Important files:
 
 ## Bottom line up front
 
-We're tired of seeing good data collection and analysis go to waste. We want to share how (relatively) easy it can be to present data more effectively. 
+We're tired of seeing good data collection and analysis go to waste. We want to share the lessons we've learned and show you the tools that can make your data presentations more effective and more enjoyable. 
 
-Our goal today is to show you what's possible and give you ideas to follow up on later - there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**Focus on the concepts, not the code - you can figure out the code later**")`.
+We'll move quickly because there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**Focus on the concepts, not the code - you can figure out the code later**")`.
 
 That said, help us make the most of this time. Who...
 
-> - often does data viz or presentation as part of your job?
+> - does data presentation as part of your job?
 > - is familiar with R?  
 > - has used R for more than statistics?
+
+
+
+
+
+
+
+
+
+## What's next
+
+1. Better data presentation (15-20 min)  
+2. How  
+    - flexdashboard (15 min)    
+    - shiny  (10-15 min)  
+3. Questions (5 min)  
+
+
 
 
 
@@ -107,7 +127,7 @@ knitr::include_graphics("bingo.png")
 
 
 
-## More likely
+## Or maybe...
 
 > - "I guess I'm not a data person."  
 > - "This is too complex."  
@@ -143,14 +163,14 @@ knitr::include_graphics("bingo.png")
 
 
 
-## Just in Time
+## General principles
 
-JIT - apply principles from manufacturing to data science to reduce wasted time and effort (the tools and software we'll cover soon help you achieve these).  
+We call this Just in Time Data (JIT) - apply ideas from manufacturing to data science to reduce wasted effort.    
 
 > - `r ct(cgreen, "**Produce only what's needed**")`   
 > - `r ct(cgreen, "**Make it beautiful and engaging**")`  
-> - `r ct(cgreen, "**Integrate when possible**")`     
-> - `r ct(cgreen, "**Interactivity is usually better**")`  
+> - `r ct(cgreen, "**Capitalize on schemas**")`     
+> - `r ct(cgreen, "**Create layers of detail**")`  
 > - `r ct(cgreen, "**Help users draw conclusions**")` 
 
 
@@ -158,28 +178,82 @@ JIT - apply principles from manufacturing to data science to reduce wasted time 
 
 
 
-## Supporting materials
-
-JW - stuff about material design, tailoring for audience, etc.
+## `r ct(cgreen, "Produce only what's needed")` 
 
 
 
 
 
 
-
-## Here's what we've done
-
-JW - demo AES dashboard, explain philosophy 
+## `r ct(cgreen, "Make it beautiful and engaging")`
 
 
 
 
 
+## `r ct(cgreen, "Capitalize on schemas")`
+
+The more you have to explain what a visual shows, the more useless it is. Take advantage of intuition:  
+
+**Do**
+
+- Use color **or** shape to show groups  
+- Use size to show size  
+- Use hot or cool color schemes appropriately  
+- Use maps to show geospatial data   
+- Use networks or dendrograms to show hierarchies  
+- Follow web conventions for user interaction  
+
+**Don't**
+
+- Use more than 2 layers (e.g., shape + color)      
+- Use maps if the data isn't geospatially-relevant  
+- Explain the obvious (e.g., "Years" for an axis showing 1970 - 2019)  
+- Add superfluous visual elements (e.g., borders, shadow)  
 
 
 
-# R and friends
+
+## `r ct(cgreen, "Create layers of detail")`
+
+
+
+
+
+## `r ct(cgreen, "Help users draw conclusions")`
+
+
+
+
+## Our work - lightning round
+
+**Our audience**
+
+- ~ 400,000 employees from the frontlines up to the Sec of VA  
+- ~ 20,000 teams (workgroups)  
+- ~ 250 locations  
+
+**Our data**
+
+- Annual All Employee Survey (AES)  
+- ~ 60% response rate  
+- ~ 65 questions about organizational health  
+
+**Our purpose**
+
+Help everyone - all levels - use the data to improve VA. We tried data cubes and giant PowerPoints, and they were great for the few people who had the patience to use them. We tried summaries, but they were too broad. 
+
+In 2017, we developed the AES Dashboard: [link to demo db]
+
+
+
+
+
+
+
+
+
+# How
 
 
 
@@ -228,9 +302,8 @@ Why should you use R if you don't already?
 ## R improves your quality of life
 
 > - Creates one workflow from data cleaning to presentation (more on this soon)  
-> - Compile to .pdf, .html, .docx, etc. with minimal edits    
 > - Handles tedium for you (more on this soon)
-> - Plugins let you do more with less code...
+> - Do more with less code...
 
 
 
@@ -239,11 +312,12 @@ Why should you use R if you don't already?
 
 
 
-## [Plotly](https://plot.ly/r/) - 1 line of code {.flexbox .vcenter}
+## [Plotly](https://plot.ly/r/) - 2 lines of code {.flexbox .vcenter}
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, results="asis"}
 
-plot_ly(economics, x = ~date, y = ~unemploy / pop)
+plot_ly(economics, x = ~date, y = ~unemploy / pop) %>%
+  layout(xaxis = list(title = NA))
 
 ```
 
@@ -444,8 +518,8 @@ This opens a new flexdashboard template. You write R code to handle the data, pl
 title: "Untitled"
 output: 
   flexdashboard::flex_dashboard:
-  orientation: columns
-vertical_layout: fill
+    orientation: columns
+    vertical_layout: fill
 
 ```
 
@@ -575,9 +649,9 @@ Page 1 {.storyboard}
   
 ## Automation
   
-Suppose your company has 10 locations and you want to make a flexdashboard for each one. Simply set up a **template** and a **driver** R file. 
+Suppose your company has many locations and you want to make a flexdashboard for each one. Simply set up a **template** and a **driver** R file. 
   
-The driver file subsets your data to each of the 10 location, and hands those subsets off to the template. The template and driver file talk to each other automatically because they share an environment (like being in the same room).
+The driver file subsets your data to each of the locations, and hands those subsets off to the template. The template and driver file talk to each other automatically because they share an environment (like being in the same room).
   
 Your template flexdashboard is called ```template.Rmd``` and your data object is ```data```.
   
@@ -712,7 +786,7 @@ Functions like ```plotOutput()``` and ```dataTableOutput()``` render different k
 
 ## server.R 
 
-This is where your more familiar R code goes. A typical server file might do something like this:  
+This your app's engine. A typical server file might do something like this:  
 
 `r ct(corange, "1. Subset the data based on user inputs")`  
 `r ct(cgreen, "2. Model the subsetted data")`    
@@ -720,7 +794,7 @@ This is where your more familiar R code goes. A typical server file might do som
 
 These actions are done within ```reactive({...})``` functions. These are like really nosy people who eavesdrop on everything and re-fire if they detect a change in something they care about. Reactives handle an incredible amount of work for you!  
 
-In the example above, as soon as the user asks for a different subset of data in the UI, `r ct(corange, "Reactive #1")` detects it and creates the new subset. `r ct(cgreen, "Reactive #2")` is always listening for #1 to change and knows to re-model the data when it changes. `r ct(cpurple, "Reactive #3")` is always listening for #2 to change and knows to re-do the graph when it changes.  
+In the example above, as soon as the user asks for a different subset of data in the UI, `r ct(corange, "Reactive #1")` detects it and creates the new subset. `r ct(cgreen, "Reactive #2")` is always listening for #1 to change and knows to re-model the data when it changes. `r ct(cpurple, "Reactive #3")` is always listening for #2 to change and knows to re-run the graph when it changes.  
 
 
 
@@ -731,22 +805,21 @@ In the example above, as soon as the user asks for a different subset of data in
 
 ## Hosting
 
-Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. Several options for hosting depending on your use case. 
+Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. Your use case determines where you should host. 
 
-Free, easy, secure, accessible - pick 3.
+Hosts can be ```free```, ```easy```, ```secure```, and ```accessible```. You only get to pick 3.
 
 ```+ free, + easy, + secure, - accessible``` = Locally on your machine   
-```+ free, + easy, - secure, + accessible``` = Shinyapps.io  
-```+ free, - easy, + secure, + accessible``` = Shinyproxy  
-```- free, + easy, + secure, + accessible``` = RStudio Connect  
+```+ free, + easy, - secure, + accessible``` = [Shinyapps.io](http://www.shinyapps.io/)    
+```+ free, - easy, + secure, + accessible``` = [Shinyproxy](https://www.shinyproxy.io/)  
+```- free, + easy, + secure, + accessible``` = [RStudio Connect](https://www.rstudio.com/products/connect/)    
 
 
 
 
 
 
-
-## Just like this...
+## Host example - shinyapps.io
 
 <br><br>
 
@@ -782,7 +855,7 @@ Free, easy, secure, accessible - pick 3.
 > - Write user stories to focus your efforts.    
 > - Do expensive things (like reading in data) outside of reactives.    
 > - Write simple, modular reactives that chain together.    
-> - Allow time for error handling.  
+> - Budget time for error handling. Users **will** break things.    
 > - If you're working with sensitive data, make sure you understand your host.  
 
 
