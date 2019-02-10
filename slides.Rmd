@@ -669,11 +669,11 @@ Open a flexdashboard template, set the layout you want, and use chunks of R code
 
 Flexdashboard's capability is limited by the widgets you use and what the web browser can handle. Shiny's capability is unlimited because it's connected to an instance of R. You can do things like...
 
-> - Run a model on user-uploaded data and graph the results  
-> - Connect to APIs (e.g., Twitter, Census Bureau)  
-> - Connect to databases in real time  
-> - Collect user input (e.g., surveys) and show real-time results  
-> - Authenticate users  
+- Run a model on user-uploaded data and graph the results  
+- Connect to APIs (e.g., Twitter, Census Bureau)  
+- Connect to databases in real time  
+- Collect user input (e.g., surveys) and show real-time results  
+- Authenticate users  
 
 
 
@@ -731,12 +731,14 @@ In the example above, as soon as the user asks for a different subset of data in
 
 ## Hosting
 
-Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. Several options for hosting depending on your use case:
+Shiny apps need to be connected to an instance of R because the server.R code needs a place to run. Several options for hosting depending on your use case. 
 
-```+ free, + easy, + secure, - accessible``` :: Locally on your machine   
-```+ free, + easy, - secure, + accessible``` :: Shinyapps.io  
-```+ free, - easy, + secure, + accessible``` :: Shinyproxy 
-```- free, + easy, + secure, + accessible``` :: RStudio Connect  
+Free, easy, secure, accessible - pick 3.
+
+```+ free, + easy, + secure, - accessible``` = Locally on your machine   
+```+ free, + easy, - secure, + accessible``` = Shinyapps.io  
+```+ free, - easy, + secure, + accessible``` = Shinyproxy  
+```- free, + easy, + secure, + accessible``` = RStudio Connect  
 
 
 
@@ -758,13 +760,11 @@ Shiny apps need to be connected to an instance of R because the server.R code ne
 
 
 
-## Cool implementations (i.e., steal the code!)
+## Cool uses (i.e., steal the code!)
 
 [For teachers](https://gallery.shinyapps.io/slr_diag/)
 
 [Bar optimizer](https://gallery.shinyapps.io/NYT-bar-optimizer/)
-
-[Effect of marketing](https://gallery.shinyapps.io/ga-effect/)
 
 [Hospital optimization](https://gallery.shinyapps.io/EDsimulation/)
 
@@ -778,10 +778,36 @@ Shiny apps need to be connected to an instance of R because the server.R code ne
 
 ## Tips 
 
-> - Write user stories to focus your efforts  
 > - "Can we?" vs. "Should we?"  
-> - Do expensive things (like reading in data) outside of reactives  
-> - Write simple, modular reactives that chain together rather than one giant one  
+> - Write user stories to focus your efforts.    
+> - Do expensive things (like reading in data) outside of reactives.    
+> - Write simple, modular reactives that chain together.    
+> - Allow time for error handling.  
+> - If you're working with sensitive data, make sure you understand your host.  
+
+
+
+
+
+
+
+## Big picture
+
+Shiny lets you stand up websites with a backend, completely within R. The ui.R file specifies the layout, and the server.R file tells the app what to do with the user inputs. Shiny apps need an instance of R to work.  
+
+**Pros**
+
+> - Unlimited capability  
+> - Accessible via web address  
+> - Integrates with user analytic tools  
+> - One touchpoint rather than multiple    
+
+**Cons**
+
+> - Bigger initial learning curve   
+> - Must be hosted for others to access  
+> - Need to really know what you're doing if you expect your app to attract hundreds or thousands of **concurrent** users or else it will be slow   
+
 
 
 
@@ -804,7 +830,7 @@ Shiny apps need to be connected to an instance of R because the server.R code ne
 
 
 
-# ?
+# Questions?
 
 
 
