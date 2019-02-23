@@ -366,8 +366,11 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 
 ## Normal workflow
 
-<iframe src="`paste0(path, 'workflow_net.html')`" style="border:0;"></iframe>
+```{r, out.width="95%"}
 
+knitr::include_graphics("workflow net.png")
+
+```
 
 
 
