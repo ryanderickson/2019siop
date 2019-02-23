@@ -366,7 +366,7 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 
 ## Normal workflow
 
-<iframe src="workflow net.html" style="border:0;"></iframe>
+<iframe src="../workflow net.html" style="border:0;"></iframe>
 
 
 
