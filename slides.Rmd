@@ -26,6 +26,7 @@ cgray<-"#57585a"    # 87, 88, 90
 cgreen<-"#17A599"   # 23, 165, 153
 cblue<-"#00a2e8"    # 0, 162, 232
 cpurple<-"#a349a4"  # 163, 73, 164 
+cfoam<-"#59A79A"    # 89, 167, 154
 
 # function to tidy up the coloring of text w/html
 ct<-function(col, txt){
@@ -39,7 +40,13 @@ ct<-function(col, txt){
 <style>
 
 slide {
-background-color: #fff;
+  background-color: #fff;
+}
+
+a {
+  color:`r cfoam`;
+  text-decoration: none;
+  border-bottom: 1px solid `r cfoam`;
 }
 
 </style>
@@ -72,29 +79,18 @@ We're tired of seeing good data collection and analysis go to waste. We want to 
 
 We'll move quickly because there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**Focus on the concepts, not the code - you can figure out the code later**")`.
 
-That said, help us make the most of this time. Who...
+That said, help us make the most of this time. 
 
-> - does data presentation as part of your job?
-> - is familiar with R?  
-> - has used R for more than statistics?
+> - Who does data presentation as part of your job?
 
+<br>
 
+Any of these reactions sound familiar?
 
-
-
-
-
-
-
-## What's next
-
-1. Better data presentation (15-20 min)  
-2. How  
-    - flexdashboard (15 min)    
-    - shiny  (10-15 min)  
-3. Questions (5 min)  
-
-
+> - "I guess I'm not a data person."  
+> - "This is too complex."  
+> - "So what do I do with this?"  
+> - "This is too much data."  
 
 
 
@@ -108,35 +104,6 @@ That said, help us make the most of this time. Who...
 
 
 
-
-
-
-## Data presentation bingo {.flexbox .vcenter}
-
-<div class="centered">
-```{r, out.width="100%"}
-
-# :: says use the include_graphics function from the knitr package
-knitr::include_graphics("bingo.png")
-```
-</div>
-
-
-
-
-
-
-
-## Or maybe...
-
-> - "I guess I'm not a data person."  
-> - "This is too complex."  
-> - "So what do I do with this?"  
-> - "This is too much data."  
-
-<br>
-
-> - i.e., **"I'm not benefitting from all your hard work."**
 
 
 
@@ -155,72 +122,28 @@ knitr::include_graphics("bingo.png")
 
 
 
+
+
+
+
+
 # Data viz best practices
 
 
 
 
 
+## First, how do we know?
 
+Over the last 10 years, we've created thousands of data presentations for every kind of organizational audience. These were well-received, but nothing actually changed, and people were becoming increasingly apathetic about surveys.
 
-## General principles
+Over the last 2 years, we focused on seeing data the way our users see it instead of the way we want them to see it. Our goal evolved from helping people **understand** data, to helping them **take action** on data.
 
-We call this Just in Time Data (JIT) - apply ideas from manufacturing to data science to reduce wasted effort.    
-
-> - `r ct(cgreen, "**Produce only what's needed**")`   
-> - `r ct(cgreen, "**Make it beautiful and engaging**")`  
-> - `r ct(cgreen, "**Capitalize on schemas**")`     
-> - `r ct(cgreen, "**Create layers of detail**")`  
-> - `r ct(cgreen, "**Help users draw conclusions**")` 
+Since then, approximately 20,000 more employees have reported that something has changed in response to their survey feedback.
 
 
 
 
-
-
-## `r ct(cgreen, "Produce only what's needed")` 
-
-
-
-
-
-
-## `r ct(cgreen, "Make it beautiful and engaging")`
-
-
-
-
-
-## `r ct(cgreen, "Capitalize on schemas")`
-
-The more you have to explain what a visual shows, the more useless it is. Take advantage of intuition:  
-
-**Do**
-
-- Use color **or** shape to show groups  
-- Use size to show size  
-- Use hot or cool color schemes appropriately  
-- Use maps to show geospatial data   
-- Use networks or dendrograms to show hierarchies  
-- Follow web conventions for user interaction  
-
-**Don't**
-
-- Use more than 2 layers (e.g., shape + color)      
-- Use maps if the data isn't geospatially-relevant  
-- Explain the obvious (e.g., "Years" for an axis showing 1970 - 2019)  
-- Add superfluous visual elements (e.g., borders, shadow)  
-
-
-
-
-## `r ct(cgreen, "Create layers of detail")`
-
-
-
-
-
-## `r ct(cgreen, "Help users draw conclusions")`
 
 
 
@@ -241,9 +164,7 @@ The more you have to explain what a visual shows, the more useless it is. Take a
 
 **Our purpose**
 
-Help everyone - all levels - use the data to improve VA. We tried data cubes and giant PowerPoints, and they were great for the few people who had the patience to use them. We tried summaries, but they were too broad. 
-
-In 2017, we developed the AES Dashboard: [link to demo db]
+Help everyone - all levels - use the data to improve VA.
 
 
 
@@ -252,8 +173,25 @@ In 2017, we developed the AES Dashboard: [link to demo db]
 
 
 
+## General best practices principles
 
-# How
+We call this Just in Time Data (JIT) - apply ideas from manufacturing to data science to reduce wasted effort.    
+
+> - `r ct(corange, "**Produce only what's needed**")`   
+> - `r ct(corange, "**Make it beautiful and engaging**")`  
+> - `r ct(corange, "**Capitalize on schemas**")`     
+> - `r ct(corange, "**Create layers of detail**")`  
+> - `r ct(corange, "**Help users draw conclusions**")` 
+
+
+
+[link to db]
+
+
+
+
+
+# How to do it
 
 
 
@@ -397,26 +335,26 @@ knitr::include_graphics("logos.png")
 
 ```{r, include=FALSE}
 
-library(magrittr)
-library(visNetwork)
-
+# library(magrittr)
+# library(visNetwork)
+# 
 path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
-
-edges<-data.frame(from=c(5,5,4,4,1,1,6,3,6),
-                  to=  c(1,3,1,3,6,3,3,6,2))
-
-
-nodes<-data.frame(id=1:6,
-                  shape="image",
-                  image=paste0(path, 1:6, ".png"))
-
-vn<-visNetwork(nodes, edges,width="500px", height="300px") %>%
-  visNodes(shapeProperties=list(useBorderWithImage=FALSE)) %>%
-  visEdges(arrows=list(to=list(enabled=TRUE)),
-           color=list(color="gray", highlight="black")) %>%
-  visLayout(randomSeed=5)
-
-visSave(vn, "workflow net.html")
+# 
+# edges<-data.frame(from=c(5,5,4,4,1,1,6,3,6),
+#                   to=  c(1,3,1,3,6,3,3,6,2))
+# 
+# 
+# nodes<-data.frame(id=1:6,
+#                   shape="image",
+#                   image=paste0(path, 1:6, ".png"))
+# 
+# vn<-visNetwork(nodes, edges,width="500px", height="300px") %>%
+#   visNodes(shapeProperties=list(useBorderWithImage=FALSE)) %>%
+#   visEdges(arrows=list(to=list(enabled=TRUE)),
+#            color=list(color="gray", highlight="black")) %>%
+#   visLayout(randomSeed=5)
+# 
+# visSave(vn, "workflow net.html")
 
 ```
 
@@ -741,7 +679,7 @@ Open a flexdashboard template, set the layout you want, and use chunks of R code
 
 <br>
 
-Flexdashboard's capability is limited by the widgets you use and what the web browser can handle. Shiny's capability is unlimited because it's connected to an instance of R. You can do things like...
+Flexdashboard's capability is limited by the widgets you use and what the web browser can handle (client-side). Shiny's capability is unlimited because it's connected to an instance of R (server-side). You can do things like...
 
 - Run a model on user-uploaded data and graph the results  
 - Connect to APIs (e.g., Twitter, Census Bureau)  
@@ -788,13 +726,28 @@ Functions like ```plotOutput()``` and ```dataTableOutput()``` render different k
 
 This your app's engine. A typical server file might do something like this:  
 
-`r ct(corange, "1. Subset the data based on user inputs")`  
-`r ct(cgreen, "2. Model the subsetted data")`    
-`r ct(cpurple, "3. Create a graph of the results and send it to the UI")`
+`r ct(corange, "1. Subset the data based on user inputs (Karen)")`  
+`r ct(cgreen, "2. Model the subsetted data (Garrett)")`    
+`r ct(cpurple, "3. Create a graph of the results and send it to the UI (Steve)")`
 
-These actions are done within ```reactive({...})``` functions. These are like really nosy people who eavesdrop on everything and re-fire if they detect a change in something they care about. Reactives handle an incredible amount of work for you!  
+These actions are done within ```reactive({...})``` functions. These are like really nosy people who spy on everyone else and re-fire if they detect a change. Reactives handle an incredible amount of work for you!  
 
-In the example above, as soon as the user asks for a different subset of data in the UI, `r ct(corange, "Reactive #1")` detects it and creates the new subset. `r ct(cgreen, "Reactive #2")` is always listening for #1 to change and knows to re-model the data when it changes. `r ct(cpurple, "Reactive #3")` is always listening for #2 to change and knows to re-run the graph when it changes.  
+In the example above, as soon as the user asks for a different subset of data in the UI, `r ct(corange, "Karen")` detects it and creates the new subset. `r ct(cgreen, "Garrett")` is always spying on Karen and re-models the data as soon as her state changes. `r ct(cpurple, "Steve")` is always spying on Garrett and re-runs the graph when his state changes.  
+
+
+
+
+
+
+
+
+## Like this...
+
+<br><br>
+
+<div class="centered">
+<video src="`r paste0(path, '/shiny_viz.mp4')`" type="video/mp4" width="500" controls></video>
+</div>
 
 
 
