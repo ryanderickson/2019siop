@@ -366,7 +366,7 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 
 ## Normal workflow
 
-```{r, out.width="95%"}
+```{r}
 
 knitr::include_graphics("workflow net.png")
 
