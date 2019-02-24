@@ -470,7 +470,7 @@ Column {data-width=600}
   
   ### Where we are
   
-  ``{r}
+``{r}
 leaflet() %>%
   addTiles() %>%
   addMarkers(lat = 38.781366, lng = -77.013841, popup = "We're here!")
@@ -665,7 +665,7 @@ Open a flexdashboard template, set the layout you want, and use chunks of R code
 
 **flexdashboard** : vending machine
 
-**shiny** : factory
+**shiny** : restaurant
 
 <br>
 
@@ -718,7 +718,7 @@ Shiny uses Twitter's [Bootstrap](https://getbootstrap.com/2.3.2/) layout by defa
 
 ## server.R 
 
-This your app's engine (kitchen). Your server function uses ```reactive({...})``` functions that listen for user input, do something, and send results to the user. Reactives are like nosy people who spy on everyone and re-fire if they detect a change.
+This your app's engine (kitchen). Your server function uses ```reactives``` that listen for user input, do something, and pass it along. Reactives are like nosy people who spy on everyone and re-fire if they detect a change.
 
 For example, your app might have 3 reactives:     
 
@@ -850,6 +850,8 @@ Shiny lets you stand up websites with a backend, completely within R. The ui.R f
 [Full shiny reference](http://shiny.rstudio.com/tutorial/)
 
 [ioslides (this deck) reference](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
+<br>
 
 ryan.derickson@va.gov  
 jena.wierwille@va.gov  
