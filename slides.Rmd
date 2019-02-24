@@ -4,6 +4,7 @@ author: "Ryan Derickson & Jena Wierwille, SIOP 2019"
 output: 
   ioslides_presentation:
     smaller: true
+    self_contained: true
 ---
 
 
@@ -335,11 +336,11 @@ knitr::include_graphics("logos.png")
 
 ```{r, include=FALSE}
 
-# library(magrittr)
-# library(visNetwork)
-# 
+library(magrittr)
+library(visNetwork)
+
 path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
-# 
+
 # edges<-data.frame(from=c(5,5,4,4,1,1,6,3,6),
 #                   to=  c(1,3,1,3,6,3,3,6,2))
 # 
@@ -354,7 +355,7 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 #            color=list(color="gray", highlight="black")) %>%
 #   visLayout(randomSeed=5)
 # 
-# visSave(vn, "workflow_net.html")
+# visSave(vn, "workflow.html")
 
 ```
 
@@ -368,7 +369,7 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 
 ```{r}
 
-knitr::include_graphics("workflow net.png")
+knitr::include_graphics("workflow.png")
 
 ```
 
@@ -442,7 +443,9 @@ This opens a new flexdashboard template. You write R code to handle the data, pl
 <br><br>
 
 <div class="centered">
-<video src="`r paste0(path, '/flexdashboard sg.mp4')`" type="video/mp4" width="500" controls></video>
+<!-- <video src="`r paste0(path, '/flexdashboard sg.mp4')`" type="video/mp4" width="500" controls></video> -->
+<video src="flexdashboard sg.mp4" type="video/mp4" width="500" controls></video>
+
 </div>
   
    
