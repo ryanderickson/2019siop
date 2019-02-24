@@ -57,11 +57,15 @@ a {
 
 ## Housekeeping
 
-All the materials we'll cover today are available at https://github.com/ryanderickson/2019siop. Click "Clone or Download" then "Download ZIP".
+All our materials: https://github.com/ryanderickson/2019siop. 
+
+``` 
+"Clone or Download" / "Download ZIP" 
+```
 
 Important files:
 
-- [README.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - our bios and table of contents 
+- [README.md](https://github.com/ryanderickson/2019siop/blob/master/README.md) - our bios and overview 
 
 - [slides.html](https://github.com/ryanderickson/2019siop/blob/master/slides.html) - this deck 
 
@@ -80,9 +84,16 @@ We're tired of seeing good data collection and analysis go to waste. We want to 
 
 We'll move quickly because there's just not time to cover everything in detail in 50 minutes. `r ct(corange, "**Focus on the concepts, not the code - you can figure out the code later**")`.
 
-That said, help us make the most of this time. 
 
-> - Who does data presentation as part of your job?
+
+
+
+
+
+
+## Help us
+
+Who does data presentation as part of your job?
 
 <br>
 
@@ -101,7 +112,7 @@ Any of these reactions sound familiar?
 
 ## {.flexbox .vcenter}
 
-`r ct(cred, "\"I used to think that the worst thing in life is to end up alone. It's not. The worst thing in life is to end up with people who make you <strike>feel alone</strike> <b>sit through an awful data presentation</b>.\"")` <br><br> - Robin Williams (mostly)
+`r ct(cred, "\"I used to think that the worst thing in life is to end up alone. It's not. The worst thing in life is to end up with people who make you <strike>feel alone</strike> sit through an awful data presentation.\"")` <br><br> - Robin Williams (mostly)
 
 
 
@@ -136,11 +147,11 @@ Any of these reactions sound familiar?
 
 ## First, how do we know?
 
-Over the last 10 years, we've created thousands of data presentations for every kind of organizational audience. These were well-received, but nothing actually changed, and people were becoming increasingly apathetic about surveys.
+Over the last 10 years, we've created and delivered thousands of data presentations for every kind of organizational audience. These were well-received but nothing actually changed, and people were becoming apathetic about surveys.
 
-Over the last 2 years, we focused on seeing data the way our users see it instead of the way we want them to see it. Our goal evolved from helping people **understand** data, to helping them **take action** on data.
+`r ct(corange, 'The last 2 years, we focused on seeing data the way our users see it instead of the way we want them to see it. Our goal evolved from helping people **understand** data, to helping them **take action** on data.')`
 
-Since then, approximately 20,000 more employees have reported that something has changed in response to their survey feedback.
+Since then, change has happened quickly. Executives engage with the data and ask for briefings instead of dodge them, and ~ 30,000 more employees say that something changed in response to their feedback.   
 
 
 
@@ -153,7 +164,7 @@ Since then, approximately 20,000 more employees have reported that something has
 
 **Our audience**
 
-- ~ 400,000 employees from the frontlines up to the Sec of VA  
+- ~ 380,000 employees from the frontlines up to the Secretary of VA  
 - ~ 20,000 teams (workgroups)  
 - ~ 250 locations  
 
@@ -165,7 +176,7 @@ Since then, approximately 20,000 more employees have reported that something has
 
 **Our purpose**
 
-Help everyone - all levels - use the data to improve VA.
+Help everyone, at all levels, use the data to improve VA.
 
 
 
@@ -174,9 +185,9 @@ Help everyone - all levels - use the data to improve VA.
 
 
 
-## General best practices principles
+## General principles
 
-We call this Just in Time Data (JIT) - apply ideas from manufacturing to data science to reduce wasted effort.    
+We call this "Just in Time Data" - apply ideas from manufacturing to data science to reduce wasted effort (by everyone - users **and** analysts).    
 
 > - `r ct(corange, "**Produce only what's needed**")`   
 > - `r ct(corange, "**Make it beautiful and engaging**")`  
@@ -186,7 +197,6 @@ We call this Just in Time Data (JIT) - apply ideas from manufacturing to data sc
 
 
 
-[link to db]
 
 
 
@@ -300,7 +310,7 @@ datatable(iris, extensions = "Buttons", filter = "top", rownames = FALSE,
 
 ## R is free & open source
 
-*"But can I really trust it if it's free...?"*  Lots of people do.
+*"But can I really trust it if it's free...?"* 
 
 ```{r, out.width="95%"}
 
@@ -348,11 +358,6 @@ path<-"https://raw.githubusercontent.com/ryanderickson/2019siop/master/"
 
 ## Normal workflow
 
-<!-- ```{r} -->
-
-<!-- knitr::include_graphics("workflow.png") -->
-
-<!-- ``` -->
 
 <iframe src='workflow.html' style="border:0;"></iframe> 
 
@@ -693,13 +698,17 @@ Flexdashboard's capability is limited by the widgets you use and what the web br
 
 ## ui.R
 
-Functions like ```sidebarLayout()``` and ```sidebarPanel()``` create space for inputs. 
+This is your app's user experience (dining room, wait staff, menus, etc.). A typical UI file will use functions like:
 
-Functions like ```sliderInput()```, ```checkboxInput()```, and ```textInput()``` create and tag places for users to input data or control some aspect of the app.  
+```sidebarLayout()``` and ```sidebarPanel()``` to create space for inputs. 
 
-```mainPanel()``` creates a space for the app's result to be displayed.  
+```sliderInput()```, ```checkboxInput()```, and ```textInput()``` to create and tag places for users to input data or control some aspect of the app.  
 
-Functions like ```plotOutput()``` and ```dataTableOutput()``` render different kinds of output in the main panel.  
+```mainPanel()``` to create a space for the app's result to be displayed.  
+
+```plotOutput()``` and ```dataTableOutput()``` to render different kinds of output.  
+
+Shiny uses Twitter's [Bootstrap](https://getbootstrap.com/2.3.2/) layout by default. 
 
 
 
@@ -709,15 +718,17 @@ Functions like ```plotOutput()``` and ```dataTableOutput()``` render different k
 
 ## server.R 
 
-This your app's engine. A typical server file might do something like this:  
+This your app's engine (kitchen). Your server function uses ```reactive({...})``` functions that listen for user input, do something, and send results to the user. Reactives are like nosy people who spy on everyone and re-fire if they detect a change.
+
+For example, your app might have 3 reactives:     
 
 `r ct(corange, "1. Subset the data based on user inputs (Karen)")`  
 `r ct(cgreen, "2. Model the subsetted data (Garrett)")`    
 `r ct(cpurple, "3. Create a graph of the results and send it to the UI (Steve)")`
 
-These actions are done within ```reactive({...})``` functions. These are like really nosy people who spy on everyone else and re-fire if they detect a change. Reactives handle an incredible amount of work for you!  
+`r ct(corange, "Karen")` spies on the users and creates a new subset of data when they ask for it. `r ct(cgreen, "Garrett")` spies on Karen and re-models the data as soon as he sees she finishes. `r ct(cpurple, "Steve")` spies on Garrett and re-runs the graph as soon as he finishes. 
 
-In the example above, `r ct(corange, "Karen")` is always spying on the users and creates a new subset of data when they ask for it. `r ct(cgreen, "Garrett")` is always spying on Karen and re-models the data as soon as he sees she finishes. `r ct(cpurple, "Steve")` is always spying on Garrett and re-runs the graph as soon as he finishes.  
+Reactives handle an incredible amount of work for you!  
 
 
 
@@ -789,15 +800,20 @@ Hosts can be ```free```, ```easy```, ```secure```, and ```accessible```. You onl
 
 ## Tips 
 
-> - "Can we?" vs. "Should we?"  
 > - Write user stories to focus your efforts.    
+> - Seriously... write user stories to focus your efforts.  
 > - Do expensive things (like reading in data) outside of reactives.    
-> - Write simple, modular reactives that chain together.    
-> - Budget time for error handling. Users **will** break things.    
+> - Write simple, modular reactives that chain together.
 > - If you're working with sensitive data, make sure you understand your host.  
+> - Budget time for error handling. Users will do unexpected things...
 
 
 
+
+##
+
+
+<div class="tenor-gif-embed" data-postid="11440363" data-share-method="host" data-width="100%" data-aspect-ratio="1.7913669064748199"><a href="https://tenor.com/view/gravity-falls-drinking-water-stupid-gif-11440363">Gravity Falls Drinking Water GIF</a> from <a href="https://tenor.com/search/gravityfalls-gifs">Gravityfalls GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 
 
@@ -811,13 +827,14 @@ Shiny lets you stand up websites with a backend, completely within R. The ui.R f
 > - Unlimited capability  
 > - Accessible via web address  
 > - Integrates with user analytic tools  
-> - One touchpoint rather than multiple    
+> - One touchpoint rather than multiple   
+> - Easiest way (by far) to do so much  
 
 **Cons**
 
-> - Bigger initial learning curve   
+> - Steeper initial learning curve   
 > - Must be hosted for others to access  
-> - Need to really know what you're doing if you expect your app to attract hundreds or thousands of **concurrent** users or else it will be slow   
+> - Need to know what you're doing if you expect your app to attract hundreds or thousands of concurrent users or else it will be slow   
 
 
 
@@ -833,6 +850,9 @@ Shiny lets you stand up websites with a backend, completely within R. The ui.R f
 [Full shiny reference](http://shiny.rstudio.com/tutorial/)
 
 [ioslides (this deck) reference](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
+ryan.derickson@va.gov  
+jena.wierwille@va.gov  
 
 
 
