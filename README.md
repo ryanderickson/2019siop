@@ -2,7 +2,7 @@
 
 ### About us
 
-We're a data scientist (**Ryan Derickson**) and a psychologist (**Jena Wierwille**) for the National Center for Organization Development (NCOD), which is an internal OD consultant to the Department of Veterans Affairs (VA). Ryan earned his MA in I-O from Xavier University, and is (slowly) finishing his quant PhD at the University of Cincinnati, and Jena earned her PsyD from Indiana State University. 
+We're a data scientist (**Ryan Derickson**) and a psychologist (**Jena Wierwille**) for the National Center for Organization Development (NCOD), which is an internal OD consultant to the Department of Veterans Affairs (VA). Ryan earned his MA in I-O from Xavier University (shoutout to my 2017 stats students!) , and is (slowly) finishing his quant PhD at the University of Cincinnati, and Jena earned her PsyD from Indiana State University. 
 
 Most of our work at NCOD has focused on VA's annual All Employee Survey (AES). The AES has around 65 organizational health questions, is offered to all VA employees, and usually has over a 60% response rate. All of VA is mapped down to the workgroup level (small teams of 5-50 people). NCOD is responsible for getting that data back out to the system and helping everyone in VA use it to drive positive change.  
 
